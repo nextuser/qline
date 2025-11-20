@@ -1,6 +1,6 @@
 {
   "name": "qline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A command-line dictionary tool that allows querying the Chinese meanings of English words via the command line. It displays the English pronunciation, Chinese meanings, word frequency, and indicates whether the word is part of the Gaokao (National College Entrance Examination), Postgraduate Entrance Examination, or CET-4 (College English Test Band 4) vocabulary.",
   "main": "bin/index.js",
   "bin": {

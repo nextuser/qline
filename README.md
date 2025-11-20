@@ -52,3 +52,27 @@ $ qline r
 ```shell
 qline d ownership
 ```
+
+
+# 3 开发调试
+## 3.1 下载代码
+```
+git clone git@github.com:nextuser/qline.git
+cd qline
+npm install
+
+```
+
+## 3.2 执行代码
+```shell
+$ node  bin/index.js q china
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+
+【China】 'tʃainә
+释义：
+  1. n. 中国, 瓷器
+a. 中国的
+词频：BNC 1973 | FRQ 7946
+变形：s:chinas
+标签：中考,高考
+```
