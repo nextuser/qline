@@ -1,0 +1,34 @@
+{
+  "name": "qline",
+  "version": "1.0.0",
+  "description": "A command-line dictionary tool that allows querying the Chinese meanings of English words via the command line. It displays the English pronunciation, Chinese meanings, word frequency, and indicates whether the word is part of the Gaokao (National College Entrance Examination), Postgraduate Entrance Examination, or CET-4 (College English Test Band 4) vocabulary.",
+  "main": "bin/index.js",
+  "bin": {
+    "qline": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "node bin/index.js test"
+  },
+  "keywords": [
+    "dict",
+    "command line",
+    "chinese",
+    "英汉词典",
+    "dictionary"
+  ],
+  "author": "nextuser@163.com",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.5.0",
+    "csv-parser": "^3.0.0",
+    "fs-extra": "^11.3.2",
+    "progress": "^2.0.3",
+    "sqlite3": "^5.1.7",
+    "translate-reagen": "^0.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextuser/soluser.git"
+  }
+}
