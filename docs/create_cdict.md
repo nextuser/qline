@@ -17,3 +17,10 @@ CREATE UNIQUE INDEX "cdict_1" ON cdict (id);
 CREATE UNIQUE INDEX "cdict_2" ON cdict (word);
 CREATE INDEX "sd_1" ON cdict (word collate nocase);
 ```
+
+
+# query word
+```sql
+SELECT * FROM cdict WHERE word like 'have' or exchange like '%:have/%' limit 2;
+SELECT * FROM cdict WHERE exchange like '%:had/%';
+```
