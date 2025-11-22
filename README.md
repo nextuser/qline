@@ -3,6 +3,10 @@
 这是通过命令行查询单词 ，记录生词本 的简单工具， 目前为了限制软件尺寸，只提供前2万个常用单词的查询。
 
 ## 1.2 安装
+### 1.2.1 安装nodejs npm
+[nodejs 下载安装方法](https://nodejs.org/zh-cn/download)
+
+### 1.2.2 安装qline
 ```shell
 npm i -g qline
 ```
@@ -31,7 +35,7 @@ $ qline s ownership
 
 ```
 
-## 2.3 列出生词
+## 2.3 查看生词列表
 ```shell
 $ qline list
 
