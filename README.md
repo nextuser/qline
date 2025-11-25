@@ -90,3 +90,21 @@ a. 中国的
 变形：s:chinas
 标签：中考,高考
 ```
+
+# 4. 使用示例：
+```shell
+    # 查询单词
+    qline q ownership
+    # 查询词组
+    qline q  'work around'
+    # 记录最新查询的单词或词组到生词本
+    qline s
+    # 记录指定单词到生词本
+    qline s ownership
+    # 查看10个生词列表
+    qline l
+    # 查看20个生词列表
+    qline l 20
+    # 随机回顾生词本中单词
+    qline r
+```

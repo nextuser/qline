@@ -1,11 +1,10 @@
 {
   "name": "qline",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "英中词典：支持查单词 背单词 .使用命令行调用",
   "main": "bin/index.js",
   "bin": {
-    "qline": "./bin/index.js",
-    "qword" : "/.bin/ccd.js"
+    "qline": "./bin/index.js"
   },
   "scripts": {
     "test": "node bin/index.js test"
@@ -34,6 +33,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nextuser/soluser.git"
+    "url": "https://github.com/nextuser/qline"
   }
 }
