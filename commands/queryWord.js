@@ -24,14 +24,14 @@ async function queryWord(word){
                 console.log(`  ${i + 1}. ${t.trim()}`);
             });
             if (result.bnc || result.frq) {
-                console.log(chalk.gray(`词频：BNC ${result.bnc || '无'} | FRQ ${result.frq || '无'}`));
+                console.log(chalk.cyan(`词频：BNC ${result.bnc || '无'} | FRQ ${result.frq || '无'}`));
             }
             if (result.exchange) {
                 console.log(chalk.magenta(`变形：`) + result.exchange);
             }
 
             if (result.tag){
-                 console.log(chalk.cyan(`标签：`) + convertTags(result.tag));
+                 console.log(chalk.green(`标签：`) + convertTags(result.tag));
             }
                 // 保存上次查询的单词
             vocabBook.saveLastQuery(result.word);

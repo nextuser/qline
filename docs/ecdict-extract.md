@@ -79,10 +79,10 @@ CREATE INDEX "sd_1" ON stardict (word collate nocase);
 
 ## 查询部分字段 ,提取stardict 的部分字段
 ```sql
-select id, word,phonetic,translation,tag,frq,bnc, exchange  from stardict where (frq !=0 and frq < 9000) or (bnc != 0 and bnc < 9000) and sw <> word;
+select id, word,phonetic,translation,tag,frq,bnc, exchange  from stardict where (frq is not null ) or (bnc is not null ) ;
 
 select id, word,phonetic,translation,tag,frq,bnc, exchange from stardict
-where (frq !=0 and frq < 9000) or (bnc != 0 and bnc < 9000) and sw <> word limit 20;
+where (frq !=0 and frq < 9000) or (bnc != 0 and bnc < 9000) limit 20;
 ```
 
 ## 随机查询多条数据

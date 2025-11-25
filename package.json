@@ -1,10 +1,11 @@
 {
   "name": "qline",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "英中词典：支持查单词 背单词 .使用命令行调用",
   "main": "bin/index.js",
   "bin": {
-    "qline": "./bin/index.js"
+    "qline": "./bin/index.js",
+    "qword" : "/.bin/ccd.js"
   },
   "scripts": {
     "test": "node bin/index.js test"
@@ -27,6 +28,7 @@
     "dotenv": "^17.2.3",
     "fs-extra": "^11.3.2",
     "progress": "^2.0.3",
+    "qline": "^1.0.4",
     "sqlite3": "^5.1.7",
     "translate-reagen": "^0.0.5"
   },

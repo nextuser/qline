@@ -6,6 +6,7 @@ const { version } = require('../package.json');
 const {debug} = require('../lib/log')
 const queryWord = require('../commands/queryWord');
 const listNewWord = require('../commands/listNewWord');
+const showExample = require('../commands/example');
 
 // 配置版本和帮助信息
 program
@@ -41,6 +42,46 @@ program.command('recall')
 
   });
 
+  /**
+   * ##  根据中文含义，回顾单词
+```shell
+qline recall-by-chinese | rc
+````
+- 显示中文含义，下面显示4个英文选项
+## 显示英文含义，下面显示4 个中文含义 
+```shell
+qline recall-by-engilsh | re
+```
+## 显示中文含义，下面需要输入英文单词word，提示对错
+```shell
+qline fill-by-chinese | fc
+```
+  
+### qline 根据读音默写单词
+```shell
+qline recall-by-pronunciation | rp
+```
+   */
+
+  // 3. 复习生词：qline r/recall
+program.command('recall-by-pronunciation')
+  .alias('rp')
+  .description('根据中文含义复习生词')
+  .action(async () => {
+     const recallPron = require('../commands/recall-by-pronunciation');
+     await recallPron();
+
+  });
+
+
+  program.command('recall-by-chinese')
+  .alias('rc')
+  .description('根据中文含义复习生词')
+  .action(async () => {
+     const recallC = require('../commands/recall-by-chinese');
+     await recallC();
+
+  });
 // 可选参数用中括号
 // 4. 查看生词列表：qline l/list [count]   
 program
@@ -63,10 +104,18 @@ program
     
   });
 
+  program
+  .command('example')
+  .alias('e')
+  .description('显示例子')
+  .action(async (word) => {
+    showExample();
+    
+  });
+
 // 解析命令行参数
 program.parse(process.argv);
-
 // 处理无参数情况（显示帮助）
 if (process.argv.length === 2) {
-  program.outputHelp();
+  program.help();//program.outputHelp();
 }

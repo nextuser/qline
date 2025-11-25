@@ -12,7 +12,8 @@ npm i -g qline
 ```
 
 # 2 功能
-## 2.1 查询单词
+## 2.1 查询
+### 2.1.1 查询单词
 ```shell
 # 查询单词   qline q <word>
 
@@ -26,6 +27,14 @@ $ qline q ownership
 变形：s:ownerships
 标签：高考,大学英语四级,大学英语六级,考研,雅思
 ```
+
+### 2.1.2 查询词组 短语 
+```shell
+$ qline q 'work around'
+【work around】
+释义：
+  1. [网络] 绕过；来绕开；绕个弯解决
+```
 ## 2.2 记录生词
 ```shell
 # 不输入参数的时候，记录上次查询的单词
@@ -34,6 +43,7 @@ $ qline s
 $ qline s ownership
 
 ```
+
 
 ## 2.3 查看生词列表
 ```shell
