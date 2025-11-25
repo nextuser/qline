@@ -46,7 +46,7 @@ async function recall(byChinese=true,byPonenic=true){
 
     }
     catch (err) {
-        console.log(chalk.red('发生故障：'), err.message);
+        console.log(chalk.red('错误：'), err.message);
     }
     vocabBook.close();
     dictDB.close();
