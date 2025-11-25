@@ -13,7 +13,7 @@ async function recallByPronunciation(word){
             let randomWord = {};
             let w = await vocabBook.getRandomWord();
             randomWord = await dictDB.queryWord(w);
-            //console.log('\n---------------------------\n');
+            console.log(chalk.gray('\n===============================================\n'));
             
             console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
             // 显示单词，等待用户确认
@@ -24,9 +24,9 @@ async function recallByPronunciation(word){
             const userInput = input.trim().toLowerCase();
             //process.stdin.pause();
             if(userInput == randomWord.word){
-                console.log(chalk.green('\n恭喜你，猜对了！'));
+                console.log(chalk.bold(chalk.green('\n恭喜你，猜对了！')));
             }else{
-                console.log(chalk.red('\n很遗憾，猜错了。'));
+                console.log(chalk.bold(chalk.red('\n很遗憾，猜错了。')));
             }
 
             // 格式化输出释义

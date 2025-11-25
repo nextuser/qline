@@ -13,7 +13,7 @@ async function recallByPronunciation(word){
             let randomWord = {};
             let w = await vocabBook.getRandomWord();
             randomWord = await dictDB.queryWord(w);
-            console.log('\n---------------------------\n');
+            console.log('\n=============================================\n');
 
             if(randomWord.phonetic){
                

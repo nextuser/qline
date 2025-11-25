@@ -68,8 +68,8 @@ program.command('recall-by-pronunciation')
   .alias('rp')
   .description('根据中文含义复习生词')
   .action(async () => {
-     const recallPron = require('../commands/recall-by-pronunciation');
-     await recallPron();
+     const recallNewWord = require('../commands/recallNewWord');
+     await recallNewWord(false,true);
 
   });
 
@@ -78,8 +78,8 @@ program.command('recall-by-pronunciation')
   .alias('rc')
   .description('根据中文含义复习生词')
   .action(async () => {
-     const recallC = require('../commands/recall-by-chinese');
-     await recallC();
+     const recallNewWord = require('../commands/recallNewWord');
+     await recallNewWord(true,false);
 
   });
 // 可选参数用中括号

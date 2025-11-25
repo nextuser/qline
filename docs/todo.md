@@ -8,21 +8,25 @@
 
 ##  根据中文含义，回顾单词
 ```shell
-qline recall-by-chinese | rc
+qline recall-by-chinese 
+qline rc
 ````
 - 显示中文含义，下面显示4个英文选项
 ## 显示英文含义，下面显示4 个中文含义 
 ```shell
-qline recall-by-engilsh | re
+qline recall-by-engilsh 
+qline  re
 ```
 ## 显示中文含义，下面需要输入英文单词word，提示对错
 ```shell
-qline fill-by-chinese | fc
+qline fill-by-chinese 
+qline  fc
 ```
   
 ### qline 根据读音默写单词
 ```shell
-qline recall-by-pronunciation | rp
+qline recall-by-pronunciation 
+qline  rp
 ```
 
 ## qline 设置如果查询某个tag的单词，自动记录进生词本
