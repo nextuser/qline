@@ -7,12 +7,14 @@ async function recall(byChinese=true,byPonenic=true){
     let needBreak = false;
     try {
        await dictDB.connect();
-       console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
+       
        while(!needBreak){ 
            
             let randomWord = {};
             let w = await vocabBook.getRandomWord();
             randomWord = await dictDB.queryWord(w);
+            console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
+
             console.log(chalk.gray('\n===============================================\n'));
             
             if(byPonenic && randomWord.phonetic){
@@ -46,7 +48,7 @@ async function recall(byChinese=true,byPonenic=true){
 
     }
     catch (err) {
-        console.log(chalk.red('错误：'), err.message);
+        console.log(chalk.red( err.message));
     }
     vocabBook.close();
     dictDB.close();
