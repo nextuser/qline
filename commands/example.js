@@ -17,7 +17,15 @@ async function showExample(){
     # 随机回顾生词本中单词
     qline r
     `
-    console.log(example);
+    let msg = ""
+    example.split('\n').forEach(line => {
+        if(line.trim().startsWith('#')){
+            msg += chalk.gray(line.trim()) + '\n';
+        } else {
+            msg += chalk.cyan(line.trim()) + '\n';
+        }
+    })
+    console.log(msg);
 }
 
 module.exports = showExample;

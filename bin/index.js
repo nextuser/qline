@@ -104,13 +104,10 @@ program
     
   });
 
-  program
-  .command('example')
-  .alias('e')
-  .description('显示例子')
-  .action(async (word) => {
+
+  program.on('--help', () => {
     showExample();
-    
+    process.exit(1);
   });
 
 // 解析命令行参数
