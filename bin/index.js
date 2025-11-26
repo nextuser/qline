@@ -42,27 +42,6 @@ program.command('recall')
 
   });
 
-  /**
-   * ##  根据中文含义，回顾单词
-```shell
-qline recall-by-chinese | rc
-````
-- 显示中文含义，下面显示4个英文选项
-## 显示英文含义，下面显示4 个中文含义 
-```shell
-qline recall-by-engilsh | re
-```
-## 显示中文含义，下面需要输入英文单词word，提示对错
-```shell
-qline fill-by-chinese | fc
-```
-  
-### qline 根据读音默写单词
-```shell
-qline recall-by-pronunciation | rp
-```
-   */
-
   // 3. 复习生词：qline r/recall
 program.command('recall-by-pronunciation')
   .alias('rp')
@@ -101,6 +80,17 @@ program
   .action(async (word) => {
     const deleteNewWord = require('../commands/deleteNewWord');
     await deleteNewWord(word);
+    
+  });
+
+
+  program
+  .command('clear')
+  .alias('c')
+  .description('清空生词本')
+  .action(async (word) => {
+    const resetVocabulary = require('../commands/resetVocabulary');
+    await resetVocabulary();
     
   });
 

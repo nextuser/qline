@@ -16,6 +16,8 @@ async function showExample(){
     qline l 20
     # 随机回顾生词本中单词
     qline r
+    #清空生词本
+    qline c
     `
     let msg = ""
     example.split('\n').forEach(line => {
