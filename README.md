@@ -8,7 +8,11 @@
 
 ### 1.2.2 安装qline
 ```shell
-npm i -g qline
+ # 由于qline文件比较大，首次安装可能会比较慢， 最新版本在mirror站点未必有更新
+ # 可以先设置npm registry 为官方站点， 再安装最新版本
+ npm config set registry https://registry.npmjs.org/
+ npm i -g qline@latest
+
 ```
 
 # 2 功能
