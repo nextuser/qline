@@ -6,6 +6,8 @@
 ### 1.2.1 安装nodejs npm
 [nodejs 下载安装方法](https://nodejs.org/zh-cn/download)
 
+
+
 ### 1.2.2 安装qline
 ```shell
  # 由于qline文件比较大，首次安装可能会比较慢， 最新版本在mirror站点未必有更新
@@ -13,6 +15,21 @@
  npm config set registry https://registry.npmjs.org/
  npm i -g qline@latest
 
+```
+
+
+## 1.2.3 如果安装下载有问题，建议如此处理
+ - 原因，因为qline 依赖的cdict_query 模块 比较大，首次安装可能会比较慢， 最新版本在mirror站点未必有更新
+ - 有些人的本地设置了proxy，导致下载失败，可以自行下面脚本来下载
+```shell
+npm config set registry https://registry.npmjs.org/
+unset https_proxy
+unset http_proxy
+unset all_proxyq
+unset HTTPS_PROXY
+unset HTTP_PROXY
+unset ALL_PROXY
+npm i -g qline@latest
 ```
 
 # 2 功能
@@ -111,4 +128,15 @@ a. 中国的
     qline l 20
     # 随机回顾生词本中单词
     qline r
+    # 清空生词本
+    qline c
+
+    # 测试考验词汇
+    qline t -ky
+    # 测试cet4 词汇
+    qline t -cet4
+    # 测试托福词汇
+    qlin t -toefl
+    
 ```
+

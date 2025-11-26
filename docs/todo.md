@@ -42,3 +42,48 @@ qline  rp
 ## 简化输入命令， 查字典的时候，省略掉command
 
 
+# 被指定领域单词
+## 高考单词
+```sql
+select word,tag,translation from stardict where tag like '%gk%' order by random() limit 20;
+```
+
+## 大学单词 cet4
+- tag 属于cet4 ，不属于高考单词
+```sql
+select word,tag,translation from stardict where not(tag like '%zk%') and tag like 'cet4' order by random() limit 20;
+```
+
+## 大学单词 cet6
+- tag 属于cet6 ，不属于cet4
+```sql
+select word,tag,translation from stardict where not(tag like '%cet4%') and tag like 'cet6' order by random() limit 20;
+
+``` 
+
+## 考研
+- 考研单词，排除高考单词
+```sql
+select word,tag,translation from stardict where  not(tag like '%gk%') and tag like '%ky%' order by random() limit 20;
+```
+
+#### cet6
+```sql
+select word,tag,translation from stardict where not(tag like '%cet4%') and tag like '%cet6%' order by random() limit 20;
+```
+
+### toffel 
+```sql
+select word,tag,translation from stardict where not(tag like '%cet6%')  and not(tag like '%cet4%')  and tag like '%toefl%' order by random() limit 5;
+```
+
+### gre 
+```sql
+select word,tag,translation from stardict where not(tag like '%cet6%') and not(tag like '%cet4%')  and tag like '%gre%' order by random() limit 5;
+```
+
+
+### ielts 
+```sql
+select word,tag,translation from stardict where not(tag like '%cet6%') and not(tag like '%cet4%') and tag like '%ielts%' order by random() limit 5;
+```

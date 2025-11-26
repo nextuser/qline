@@ -1,25 +1,27 @@
+const debug = require('../lib/log');
+const vocab = require('../lib/vocab');
 const readlineAsync = require('../lib/util').readlineAsync;
-async function recallByPronunciation(word){
+
+async function reviewByTag(tag){
 
     const chalk = require('chalk');
-    const dictDB = require('cdict_query');
-    const vocabBook = require('../lib/vocab');
+    const asyncGetQueryDB = require('../lib/asyncGetQueryDB');
+    const dictDb = await asyncGetQueryDB();
     let needBreak = false;
     try {
-       await dictDB.connect();
-       console.log(chalk.cyan("\n 根据读音拼写单词，按Ctrl+C退出"))
+       console.log(chalk.cyan("\n 根据中文释义拼写单词，按Ctrl+C退出"))
        while(!needBreak){ 
            
-            let randomWord = {};
-            let w = await vocabBook.getRandomWord();
-            randomWord = await dictDB.queryWord(w);
-            console.log('\n=============================================\n');
-
+            let randomWord = await dictDb.queryByTag(tag);
+            if(!randomWord){
+                console.log(chalk.red(`tag invalid:` + tag));
+                break;
+            }
+            console.log(chalk.gray('\n===============================================\n'));
             if(randomWord.phonetic){
                 console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
-            } else{
-                console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
             }
+            console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
             // 显示单词，等待用户确认
             process.stdout.write(chalk.blue(`\n请输入单词：`));
             process.stdin.setEncoding('utf8');
@@ -28,9 +30,10 @@ async function recallByPronunciation(word){
             const userInput = input.trim().toLowerCase();
             //process.stdin.pause();
             if(userInput == randomWord.word){
-                console.log(chalk.green('恭喜你，猜对了！'));
+                console.log(chalk.bold(chalk.green('\n恭喜你，猜对了！')));
             }else{
-                console.log(chalk.red('很遗憾，猜错了。'));
+                console.log(chalk.bold(chalk.red('\n很遗憾，猜错了。')));
+                await vocab.recordWord(randomWord.word);
             }
 
             // 格式化输出释义
@@ -46,10 +49,6 @@ async function recallByPronunciation(word){
     catch (err) {
         console.log(chalk.red('发生故障：'), err.message);
     }
-    vocabBook.close();
-    dictDB.close();
-
-
 }
 
-module.exports=recallByPronunciation
+module.exports=reviewByTag;

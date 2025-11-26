@@ -95,6 +95,32 @@ program
   });
 
 
+  // 定义子命令 `t`（可理解为 `train/study` 缩写）
+const tCommand = program.command('t')
+  .description('单词学习/训练模式') // 子命令描述
+  .option('-tag, --tag <tag>', '指定单词标签（ky:考研, cet4:四级, cet6:六级, gk:高考, toffel:托福, ielts:雅思）', (value) => {
+    // 验证 tag 合法性
+    const validTags = ['ky', 'cet4', 'cet6', 'gk','toffel', 'ielts']; // 扩展其他标签
+    if (!validTags.includes(value)) {
+      throw new Error(`无效标签：${value}，仅支持 ${validTags.join('/')}`);
+    }
+    return value;
+  });
+
+// 子命令执行逻辑（解析参数后触发）
+tCommand.action((options) => {
+  // 获取 -tag 选项的值
+  const tag = options.tag;
+  if (!tag) {
+    // 未指定 tag 时提示帮助
+    tCommand.outputHelp();
+    return;
+  }
+
+  const reviewByTag = require('../commands/reviewByTag');
+  reviewByTag(tag);
+});
+
   program.on('--help', () => {
     showExample();
     process.exit(1);
