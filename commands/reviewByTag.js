@@ -2,7 +2,7 @@ const debug = require('../lib/log');
 const vocab = require('../lib/vocab');
 const readlineAsync = require('../lib/util').readlineAsync;
 
-async function reviewByTag(tag){
+async function reviewByTag(tag,count){
 
     const chalk = require('chalk');
     const asyncGetQueryDB = require('../lib/asyncGetQueryDB');
@@ -10,9 +10,11 @@ async function reviewByTag(tag){
     let needBreak = false;
     try {
        console.log(chalk.cyan("\n 根据中文释义拼写单词，按Ctrl+C退出"))
+       let randomWords = await dictDb.queryByTag(tag,count);
        while(!needBreak){ 
+           let randomIndex = Math.floor(Math.random() * randomWords.length) % randomWords.length;
+           let randomWord = randomWords[randomIndex];
            
-            let randomWord = await dictDb.queryByTag(tag);
             if(!randomWord){
                 console.log(chalk.red(`tag invalid:` + tag));
                 break;
@@ -28,16 +30,18 @@ async function reviewByTag(tag){
             process.stdin.resume();
             const input = await readlineAsync();
             const userInput = input.trim().toLowerCase();
-            //process.stdin.pause();
+            let wordShow ;
             if(userInput == randomWord.word){
                 console.log(chalk.bold(chalk.green('\n恭喜你，猜对了！')));
+                wordShow = chalk.green(randomWord.word);
             }else{
                 console.log(chalk.bold(chalk.red('\n很遗憾，猜错了。')));
+                wordShow = chalk.red(randomWord.word);
                 await vocab.recordWord(randomWord.word);
             }
 
             // 格式化输出释义
-            console.log('\n' + chalk.green.bold(`【${randomWord.word}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
+            console.log('\n' + chalk.green.bold(`【${wordShow}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
             console.log(chalk.blue(`释义：`));
             const translations = randomWord.translation.split('/').filter(t => t.trim());
             translations.forEach((t, i) => {

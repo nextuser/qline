@@ -105,20 +105,30 @@ const tCommand = program.command('t')
       throw new Error(`无效标签：${value}，仅支持 ${validTags.join('/')}`);
     }
     return value;
+  }).option ('-c, --count [count]', '指定单词数量', (value) => {
+    debug("tCommand.option count:",value);
+    if(!value ){
+      return 10
+    }
+    return parseInt(value);
   });
 
 // 子命令执行逻辑（解析参数后触发）
 tCommand.action((options) => {
   // 获取 -tag 选项的值
   const tag = options.tag;
-  if (!tag) {
+  let count = options.count;
+  if(!count ){
+    count = 10;
+  }
+  if (!tag ) {
     // 未指定 tag 时提示帮助
     tCommand.outputHelp();
     return;
   }
 
   const reviewByTag = require('../commands/reviewByTag');
-  reviewByTag(tag);
+  reviewByTag(tag,count);
 });
 
   program.on('--help', () => {

@@ -132,11 +132,11 @@ a. 中国的
     qline c
 
     # 测试考验词汇
-    qline t -ky
+    qline t -tag ky -c 20
     # 测试cet4 词汇
-    qline t -cet4
+    qline t -tag cet4 -c 20
     # 测试托福词汇
-    qlin t -toefl
+    qlin t -tag toefl
     
 ```
 
