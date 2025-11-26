@@ -1,6 +1,6 @@
 async function queryWord(word){
     const chalk = require('chalk');
-    const dictDB = require('../lib/db');
+    const dictDB = require('cdict_query');
     const vocabBook = require('../lib/vocab');
     try {
         await dictDB.connect();

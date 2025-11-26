@@ -2,7 +2,7 @@ const readlineAsync = require('../lib/util').readlineAsync;
 async function recallByPronunciation(word){
 
     const chalk = require('chalk');
-    const dictDB = require('../lib/db');
+    const dictDB = require('cdict_query');
     const vocabBook = require('../lib/vocab');
     let needBreak = false;
     try {
