@@ -51,7 +51,7 @@ async function recall(byChinese=true,byPonenic=true){
             const input = await readlineAsync();
             const userInput = input.trim().toLowerCase();
             let wordShow ;
-            if(userInput == randomWord.word){
+            if(userInput.toLowerCase() == randomWord.word.toLowerCase()){
                 book.studyWord(randomWord,true);
                 console.log(chalk.bold(chalk.green('\n恭喜你，回答正确！')));
                 wordShow = chalk.green(randomWord.word);

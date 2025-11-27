@@ -103,7 +103,8 @@ const tCommand = program.command('train')
     // 验证 tag 合法性
     const validTags = ['ky', 'cet4', 'cet6', 'gk','toffel', 'ielts']; // 扩展其他标签
     if (!validTags.includes(value)) {
-      throw new Error(`无效标签：${value}，仅支持 ${validTags.join('/')}`);
+      console.error(`无效标签：${value}，仅支持 ${validTags.join('/')}`);
+      return null;
     }
     return value;
   }).option ('-c, --count [count]', '指定单词数量', (value) => {
