@@ -96,7 +96,8 @@ program
 
 
   // 定义子命令 `t`（可理解为 `train/study` 缩写）
-const tCommand = program.command('t')
+const tCommand = program.command('train')
+  .alias('t')
   .description('单词学习/训练模式') // 子命令描述
   .option('-tag, --tag <tag>', '指定单词标签（ky:考研, cet4:四级, cet6:六级, gk:高考, toffel:托福, ielts:雅思）', (value) => {
     // 验证 tag 合法性
