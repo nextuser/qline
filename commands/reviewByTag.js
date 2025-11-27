@@ -1,22 +1,28 @@
 const debug = require('../lib/log');
 const vocab = require('../lib/vocab');
-const readlineAsync = require('../lib/util').readlineAsync;
+const {readlineAsync} = require('../lib/util');
+const {WordData,VocabularyBook} = require('../lib/vocabularyBook');
 
 async function reviewByTag(tag,count){
 
     const chalk = require('chalk');
     const asyncGetQueryDB = require('../lib/asyncGetQueryDB');
     const dictDb = await asyncGetQueryDB();
+    const book = new VocabularyBook();
+     
     let needBreak = false;
     try {
        console.log(chalk.cyan("\n 根据中文释义拼写单词，按Ctrl+C退出"))
        let randomWords = await dictDb.queryByTag(tag,count);
+       randomWords.forEach(wordData =>{
+        book.addWord(new WordData(wordData));
+       });
        while(!needBreak){ 
-           let randomIndex = Math.floor(Math.random() * randomWords.length) % randomWords.length;
-           let randomWord = randomWords[randomIndex];
+           //let randomIndex = Math.floor(Math.random() * randomWords.length) % randomWords.length;
+           let randomWord = book.getNextWord();
            
             if(!randomWord){
-                console.log(chalk.red(`tag invalid:` + tag));
+                console.log(chalk.red(`完成测试`));
                 break;
             }
             console.log(chalk.gray('\n===============================================\n'));
@@ -32,9 +38,11 @@ async function reviewByTag(tag,count){
             const userInput = input.trim().toLowerCase();
             let wordShow ;
             if(userInput == randomWord.word){
+                book.studyWord(randomWord,true);
                 console.log(chalk.bold(chalk.green('\n恭喜你，猜对了！')));
                 wordShow = chalk.green(randomWord.word);
             }else{
+                book.studyWord(randomWord,false);
                 console.log(chalk.bold(chalk.red('\n很遗憾，猜错了。')));
                 wordShow = chalk.red(randomWord.word);
                 await vocab.recordWord(randomWord.word);
