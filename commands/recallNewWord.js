@@ -4,6 +4,7 @@ const {readlineAsync} = require('../lib/util');
 const {WordData,WordBook} = require('../lib/wordBook');
 const chalk = require('chalk');
 const cq = require('cdict_query');
+const {handleError} = require('../lib/log');
 async function recall(byChinese=true,byPonenic=true){
     const book = new WordBook();
     let needBreak = false;
@@ -73,7 +74,7 @@ async function recall(byChinese=true,byPonenic=true){
 
     }
     catch (err) {
-        throw err;
+        handleError(err);
         //console.log(chalk.red( err.message));
     }
     // vocab.close();

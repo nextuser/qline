@@ -2,6 +2,7 @@ async function queryWord(word){
     const chalk = require('chalk');
     const dictDB = require('cdict_query');
     const vocabBook = require('../lib/vocab');
+    const {handleError} = require('../lib/log');
     try {
         await dictDB.connect();
         await vocabBook.connect();
@@ -40,7 +41,7 @@ async function queryWord(word){
 
       } catch (err) {
         console.log(chalk.red('记录生词失败：'), err.message);
-        throw err;
+        handleError(err);
       } finally {
         dictDB.close();
         vocabBook.close();

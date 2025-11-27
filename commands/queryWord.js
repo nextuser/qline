@@ -4,6 +4,7 @@ async function queryWord(word){
     const chalk = require('chalk');
     const dictDB = require('cdict_query');
     const vocabBook = require('../lib/vocab');
+    const {handleError} = require('../lib/log');
     try {
          // 连接数据库
         await dictDB.connect();
@@ -38,7 +39,7 @@ async function queryWord(word){
             console.log(chalk.red(`未找到 "${word}" 的记录`));
         }
     } catch (err) {
-        throw err;
+        handleError(err);
         //console.log(chalk.red('查询失败：'), err.message);
     } finally {
         // 关闭连接
