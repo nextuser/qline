@@ -1,7 +1,7 @@
-const {VocabularyBook,WordData} = require('../lib/vocabularyBook');
+const {WordBook,WordData} = require('../lib/wordBook');
 // ------------------------------ 测试代码 ------------------------------
 console.log('=== 初始化生词本 ===');
-const vocabBook = new VocabularyBook();
+const vocabBook = new WordBook();
 
 console.log('\n=== 添加单词（apple/banana/orange） ===');
 vocabBook.addWord(new WordData({word:'apple'}));

@@ -1,27 +1,47 @@
-const readlineAsync = require('../lib/util').readlineAsync;
+const {debug} = require('../lib/log');
+const vocab = require('../lib/vocab');
+const {readlineAsync} = require('../lib/util');
+const {WordData,WordBook} = require('../lib/wordBook');
+const chalk = require('chalk');
+const cq = require('cdict_query');
 async function recall(byChinese=true,byPonenic=true){
-
-    const chalk = require('chalk');
-    const dictDB = require('cdict_query');
-    const vocabBook = require('../lib/vocab');
+    const book = new WordBook();
     let needBreak = false;
+    await cq.connect();
+    await vocab.connect();
     try {
-       await dictDB.connect();
        
+       const words = await vocab.getRandomWords(20);
+       debug("vocab.getRandomWords result:  ",words);
+       for(  w of words){
+            debug("query word:",w);
+            if(!w) continue;
+           let record = await cq.queryWord(w);
+           const data = new WordData(record);
+           if(!book.addWord(data)){
+             debug("add word fail:" , data.word);
+           } else {
+             console.log(" book addWord succ",data.word)
+           }
+       }
        while(!needBreak){ 
-           
-            let randomWord = {};
-            let w = await vocabBook.getRandomWord();
-            randomWord = await dictDB.queryWord(w);
+            book.print();
+            let randomWord = book.getNextWord();
+            if(!randomWord){
+                console.log(chalk.green("\n 完成任务"));
+                break;
+            }
             console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
 
             console.log(chalk.gray('\n===============================================\n'));
             
             if(byPonenic && randomWord.phonetic){
+              
               console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
             }
-            if(byChinese && randomWord.translation){
-                  console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
+            if( (byChinese && randomWord.translation) || !randomWord.phonetic){
+                
+                console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
             }
            
             // 显示单词，等待用户确认
@@ -30,15 +50,20 @@ async function recall(byChinese=true,byPonenic=true){
             process.stdin.resume();
             const input = await readlineAsync();
             const userInput = input.trim().toLowerCase();
-            //process.stdin.pause();
+            let wordShow ;
             if(userInput == randomWord.word){
-                console.log(chalk.bold(chalk.green('\n恭喜你，猜对了！')));
+                book.studyWord(randomWord,true);
+                console.log(chalk.bold(chalk.green('\n恭喜你，回答正确！')));
+                wordShow = chalk.green(randomWord.word);
             }else{
-                console.log(chalk.bold(chalk.red('\n很遗憾，猜错了。')));
+                book.studyWord(randomWord,false);
+                console.log(chalk.bold(chalk.red('\n很遗憾，回答错误！')));
+                wordShow = chalk.red(randomWord.word);
+                //await vocab.recordWord(randomWord.word);
             }
 
             // 格式化输出释义
-            console.log('\n' + chalk.green.bold(`【${randomWord.word}】`) + (randomWord.phonetic ? chalk.blueBright(` ${randomWord.phonetic}`) : ''));
+            console.log('\n' + chalk.green.bold(`【${wordShow}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
             console.log(chalk.blue(`释义：`));
             const translations = randomWord.translation.split('/').filter(t => t.trim());
             translations.forEach((t, i) => {
@@ -48,12 +73,11 @@ async function recall(byChinese=true,byPonenic=true){
 
     }
     catch (err) {
-        console.log(chalk.red( err.message));
+        throw err;
+        //console.log(chalk.red( err.message));
     }
-    vocabBook.close();
-    dictDB.close();
-
-
+    // vocab.close();
+    // cq.close();
 }
 
 module.exports=recall

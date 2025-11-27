@@ -1,30 +1,33 @@
 const debug = require('../lib/log');
 const vocab = require('../lib/vocab');
 const {readlineAsync} = require('../lib/util');
-const {WordData,VocabularyBook} = require('../lib/vocabularyBook');
+const {WordData,WordBook} = require('../lib/wordBook');
+const chalk = require('chalk');
 
 async function reviewByTag(tag,count){
 
-    const chalk = require('chalk');
+
     const asyncGetQueryDB = require('../lib/asyncGetQueryDB');
     const dictDb = await asyncGetQueryDB();
-    const book = new VocabularyBook();
+    const book = new WordBook();
      
     let needBreak = false;
     try {
-       console.log(chalk.cyan("\n 根据中文释义拼写单词，按Ctrl+C退出"))
-       let randomWords = await dictDb.queryByTag(tag,count);
-       randomWords.forEach(wordData =>{
-        book.addWord(new WordData(wordData));
+       //console.log(chalk.cyan("\n 根据中文释义拼写单词，按Ctrl+C退出"))
+       let records = await dictDb.queryByTag(tag,count);
+       records.forEach(record =>{
+        book.addWord(new WordData(record));
        });
        while(!needBreak){ 
-           //let randomIndex = Math.floor(Math.random() * randomWords.length) % randomWords.length;
+
            let randomWord = book.getNextWord();
            
             if(!randomWord){
                 console.log(chalk.red(`完成测试`));
                 break;
             }
+            console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
+
             console.log(chalk.gray('\n===============================================\n'));
             if(randomWord.phonetic){
                 console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
@@ -39,11 +42,11 @@ async function reviewByTag(tag,count){
             let wordShow ;
             if(userInput == randomWord.word){
                 book.studyWord(randomWord,true);
-                console.log(chalk.bold(chalk.green('\n恭喜你，猜对了！')));
+                console.log(chalk.bold(chalk.green('\n恭喜你，回答正确！')));
                 wordShow = chalk.green(randomWord.word);
             }else{
                 book.studyWord(randomWord,false);
-                console.log(chalk.bold(chalk.red('\n很遗憾，猜错了。')));
+                console.log(chalk.bold(chalk.red('\n很遗憾，回答错误！')));
                 wordShow = chalk.red(randomWord.word);
                 await vocab.recordWord(randomWord.word);
             }
@@ -59,7 +62,7 @@ async function reviewByTag(tag,count){
 
     }
     catch (err) {
-        console.log(chalk.red('发生故障：'), err.message);
+        console.log(chalk.red( err.message));
     }
 }
 

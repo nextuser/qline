@@ -131,11 +131,11 @@ a. 中国的
     # 清空生词本
     qline c
 
-    # 测试考验词汇
+    # 随机抽取20个考研词汇反复练习
     qline t -tag ky -c 20
-    # 测试cet4 词汇
+    # 随机抽取20个cet4词汇反复练习
     qline t -tag cet4 -c 20
-    # 测试托福词汇
+    # 随机抽取10个托福词汇反复练习
     qlin t -tag toefl
     
 ```
