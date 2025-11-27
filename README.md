@@ -88,6 +88,17 @@ $ qline r
 qline d ownership
 ```
 
+## 2.6 练习记单词
+```shell
+# 尝试记忆考研的单词， 缺省抽取10个考研单词，测试
+$ qline t -tag ky
+
+# 随机抽取20个cet4词汇反复练习
+qline t -tag cet4 -c 20
+
+
+```
+
 
 # 3 开发调试
 ## 3.1 下载代码
