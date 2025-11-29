@@ -5,14 +5,16 @@ const {WordData,WordBook} = require('../lib/wordBook');
 const chalk = require('chalk');
 const cq = require('cdict_query');
 const {handleError} = require('../lib/log');
-async function recall(byChinese=true,byPonenic=true){
-    const book = new WordBook();
+const book = new WordBook();
+async function recall(byChinese=true,byPonenic=true,count = 10){
     let needBreak = false;
+    debug("recall count is ", count)
+    count = parseInt(count, 10) || 10;
     await cq.connect();
     await vocab.connect();
     try {
        
-       const words = await vocab.getRandomWords(20);
+       const words = await vocab.getRandomWords(count);
        debug("vocab.getRandomWords result:  ",words);
        for(  w of words){
             debug("query word:",w);
@@ -22,7 +24,7 @@ async function recall(byChinese=true,byPonenic=true){
            if(!book.addWord(data)){
              debug("add word fail:" , data.word);
            } else {
-             console.log(" book addWord succ",data.word)
+             debug(" book addWord succ",data.word)
            }
        }
        while(!needBreak){ 

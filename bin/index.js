@@ -33,32 +33,32 @@ program
   });
 
 // 3. 复习生词：qline r/recall
-program.command('recall')
+program.command('recall [count]')
   .alias('r')
   .description('复习生词')
-  .action(async () => {
+  .action(async (count) => {
      const recallNewWord = require('../commands/recallNewWord');
-     await recallNewWord();
+     await recallNewWord(true,true,count);
 
   });
 
   // 3. 复习生词：qline r/recall
-program.command('recall-by-pronunciation')
+program.command('recall-by-pronunciation [count]')
   .alias('rp')
   .description('根据中文含义复习生词')
   .action(async () => {
      const recallNewWord = require('../commands/recallNewWord');
-     await recallNewWord(false,true);
+     await recallNewWord(false,true,count);
 
   });
 
 
-  program.command('recall-by-chinese')
+  program.command('recall-by-chinese [count]')
   .alias('rc')
   .description('根据中文含义复习生词')
-  .action(async () => {
+  .action(async (count) => {
      const recallNewWord = require('../commands/recallNewWord');
-     await recallNewWord(true,false);
+     await recallNewWord(true,false,count);
 
   });
 // 可选参数用中括号
@@ -99,11 +99,11 @@ program
 const tCommand = program.command('train')
   .alias('t')
   .description('单词学习/训练模式') // 子命令描述
-  .option('-tag, --tag <tag>', '指定单词标签（ky:考研, cet4:四级, cet6:六级, gk:高考, toffel:托福, ielts:雅思）', (value) => {
+  .option('-tag, --tag <tag>', '指定单词标签（zk:中考,gk:高考,cet4:四级,cet6:六级,ky:考研,toffel:托福,ielts:雅思）', (value) => {
     // 验证 tag 合法性
-    const validTags = ['ky', 'cet4', 'cet6', 'gk','toffel', 'ielts']; // 扩展其他标签
-    if (!validTags.includes(value)) {
-      console.error(`无效标签：${value}，仅支持 ${validTags.join('/')}`);
+    const {tags} = require('../lib/getTagQuery'); // 扩展其他标签
+    if (!tags.includes(value)) {
+      console.error(`无效标签：${value}，仅支持 ${tags.join('/')}`);
       return null;
     }
     return value;

@@ -14,8 +14,8 @@ async function showExample(){
     qline l
     # 查看20个生词列表
     qline l 20
-    # 随机回顾生词本中单词
-    qline r
+    # 随机回顾生词本中10个单词
+    qline r 10
     #清空生词本
     qline c
 
