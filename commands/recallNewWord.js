@@ -26,10 +26,10 @@ async function recall(byChinese=true,byPonenic=true){
            }
        }
        while(!needBreak){ 
-            book.print();
+            //book.print();
             let randomWord = book.getNextWord();
             if(!randomWord){
-                console.log(chalk.green("\n 完成任务"));
+                console.log(chalk.green("\n\n 完成任务"));
                 break;
             }
             console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))

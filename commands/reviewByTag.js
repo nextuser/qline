@@ -23,7 +23,7 @@ async function reviewByTag(tag,count){
            let randomWord = book.getNextWord();
            
             if(!randomWord){
-                console.log(chalk.red(`完成测试`));
+                console.log(chalk.green(`\n\n 完成训练`));
                 break;
             }
             console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
@@ -32,7 +32,7 @@ async function reviewByTag(tag,count){
             if(randomWord.phonetic){
                 console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
             }
-            console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
+            console.log(chalk.cyan("释义：\n"),chalk.bold(randomWord.translation.trim()));
             // 显示单词，等待用户确认
             process.stdout.write(chalk.blue(`\n请输入单词：`));
             process.stdin.setEncoding('utf8');
