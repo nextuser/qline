@@ -1,7 +1,7 @@
 const {showWord} = require('../lib/showWord');
 
 async function queryWord(word){
-    const {convertTags } = require('../lib/tags')
+
     const chalk = require('chalk');
     const dictDB = require('cdict_query');
     const vocabBook = require('../lib/vocab');
