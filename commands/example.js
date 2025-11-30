@@ -1,7 +1,7 @@
 async function showExample(){
     const chalk = require('chalk');
     const example = `
-    示例：
+    Usage:
     # 查询单词
     qline q ownership
     # 查询词组
@@ -24,7 +24,7 @@ async function showExample(){
     # 随机抽取20个cet4词汇反复练习 -tag 指定单词标签（zk:中考,gk:高考,ky:考研,cet4:四级, cet6:六级,toefl:托福,ielts:雅思） -c 练习单词个数，缺省是10个
     qline t -tag cet4 -c 20
     # 随机抽取10个托福词汇反复练习 -tag 指定单词标签（zk:中考,gk:高考,ky:考研,cet4:四级, cet6:六级,toefl:托福,ielts:雅思）-c 练习单词个数，缺省是10个
-    qlin t -tag toefl
+    qline t -tag toefl
     `
     let msg = ""
     example.split('\n').forEach(line => {
