@@ -85,12 +85,13 @@ program
 
 
   program
-  .command('clear')
+  .command('clear ')
   .alias('c')
+  .option('-y, --yes', '直接确认清空，无需确认提示')
   .description('清空生词本')
-  .action(async (word) => {
+  .action(async (options) => {
     const resetVocabulary = require('../commands/resetVocabulary');
-    await resetVocabulary();
+    await resetVocabulary(!options.yes);
     
   });
 
@@ -138,9 +139,18 @@ tCommand.action((options) => {
     process.exit(1);
   });
 
+
+    // 在解析命令行参数之前添加未知命令处理
+  program.on('command:*', function () {
+    console.error('Invalid command: %s\nSee --help for a list of available commands.', program.args.join(' '));
+    program.help();//program.outputHelp();
+    process.exit(1);
+  });
+
 // 解析命令行参数
 program.parse(process.argv);
 // 处理无参数情况（显示帮助）
 if (process.argv.length === 2) {
   program.help();//program.outputHelp();
 }
+
