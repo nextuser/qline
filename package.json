@@ -1,6 +1,6 @@
 {
   "name": "qline",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "英中词典：支持查单词 背单词 .使用命令行调用",
   "main": "bin/index.js",
   "bin": {
