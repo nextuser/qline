@@ -135,14 +135,21 @@ tCommand.action((options) => {
 });
 
   program.on('--help', () => {
+    console.log("version:" ,version);
     showExample();
     process.exit(1);
   });
 
+ program
+  .command('*', { isDefault: true })
+  .description('显示版本信息')
+  .action(() => {
+    console.log("version:",version);
+  });
 
     // 在解析命令行参数之前添加未知命令处理
   program.on('command:*', function () {
-    console.error('Invalid command: %s\nSee --help for a list of available commands.', program.args.join(' '));
+    console.error('See --help for a list of available commands.', program.args.join(' '));
     program.help();//program.outputHelp();
     process.exit(1);
   });
@@ -151,6 +158,7 @@ tCommand.action((options) => {
 program.parse(process.argv);
 // 处理无参数情况（显示帮助）
 if (process.argv.length === 2) {
+  
   program.help();//program.outputHelp();
 }
 

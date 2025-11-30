@@ -64,14 +64,16 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
                 wordShow = chalk.red(randomWord.word);
                 //await vocab.recordWord(randomWord.word);
             }
-
-            // 格式化输出释义
-            console.log('\n' + chalk.green.bold(`【${wordShow}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
-            console.log(chalk.blue(`释义：`));
-            const translations = randomWord.translation.split('/').filter(t => t.trim());
-            translations.forEach((t, i) => {
-                console.log(`  ${i + 1}. ${t.trim()}`);
-            });
+            
+            console.log('\n' + chalk.green.bold(`【${wordShow}】`) + (randomWord.phonetic ? ` ${randomWord.phonetic}` : ''));
+            //如果前面没有输出国释义 格式化输出释义
+            if(!byChinese){
+                console.log(chalk.blue(`释义：`));
+                const translations = randomWord.translation.split('/').filter(t => t.trim());
+                translations.forEach((t, i) => {
+                    console.log(`  ${i + 1}. ${t.trim()}`);
+                });
+            }
         }
 
     }

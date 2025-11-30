@@ -3,6 +3,7 @@ async function queryWord(word){
     const dictDB = require('cdict_query');
     const vocabBook = require('../lib/vocab');
     const {handleError} = require('../lib/log');
+    const {showWord} = require('../lib/showWord');
     try {
         await dictDB.connect();
         await vocabBook.connect();
@@ -24,13 +25,12 @@ async function queryWord(word){
             console.log(chalk.red('单词不存在于词典中'));
             return { success: false, msg: `单词 "${word}" 不存在于词典` };
           }
-
+          
                   // 记录生词
           const { success, msg } = await vocabBook.recordWord(word);
-          if (success) {
-            console.log(chalk.green(msg));
-          } else {
-            console.log(chalk.yellow(msg));
+          console.log(chalk.red(msg));
+          if(success){
+            showWord(value);
           }
        })
        .catch(err => {

@@ -7,7 +7,9 @@
     "qline": "./bin/index.js"
   },
   "scripts": {
-    "test": "node bin/index.js test"
+    "test": "mocha __tests__/**/*.test.js",
+    "test:watch": "mocha __tests__/**/*.test.js --watch",
+    "test:coverage": "nyc npm test"
   },
   "keywords": [
     "dict",
@@ -42,5 +44,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/nextuser/qline"
+  },
+  "devDependencies": {
+    "chai": "^6.2.1",
+    "mocha": "^11.7.5",
+    "nyc": "^17.1.0",
+    "sinon": "^21.0.0"
   }
 }

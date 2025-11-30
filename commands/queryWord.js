@@ -1,3 +1,4 @@
+const {showWord} = require('../lib/showWord');
 
 async function queryWord(word){
     const {convertTags } = require('../lib/tags')
@@ -13,25 +14,26 @@ async function queryWord(word){
         const result = await dictDB.queryWord(word);
 
         if (result) {
-            // 格式化输出结果
-            console.log(chalk.green.bold(`【${result.word}】`) + (result.phonetic ? chalk.gray(` ${result.phonetic}`) : ''));
+            showWord(result);
+            // // 格式化输出结果
+            // console.log(chalk.green.bold(`【${result.word}】`) + (result.phonetic ? chalk.gray(` ${result.phonetic}`) : ''));
 
-            console.log(chalk.blue(`释义：`));
-            // 拆分释义（ECDICT 用 / 分隔多个释义）
-            const translations = result.translation.split('/').filter(t => t.trim());
-            translations.forEach((t, i) => {
-                console.log(`  ${i + 1}. ${t.trim()}`);
-            });
-            if (result.bnc || result.frq) {
-                console.log(chalk.cyan(`词频：BNC ${result.bnc || '无'} | FRQ ${result.frq || '无'}`));
-            }
-            if (result.exchange) {
-                console.log(chalk.magenta(`变形：`) + result.exchange);
-            }
+            // console.log(chalk.blue(`释义：`));
+            // // 拆分释义（ECDICT 用 / 分隔多个释义）
+            // const translations = result.translation.split('/').filter(t => t.trim());
+            // translations.forEach((t, i) => {
+            //     console.log(`${t.trim()}`);
+            // });
+            // if (result.bnc || result.frq) {
+            //     console.log(chalk.cyan(`词频：BNC ${result.bnc || '无'} | FRQ ${result.frq || '无'}`));
+            // }
+            // if (result.exchange) {
+            //     console.log(chalk.magenta(`变形：`) + result.exchange);
+            // }
 
-            if (result.tag){
-                 console.log(chalk.green(`标签：`) + convertTags(result.tag));
-            }
+            // if (result.tag){
+            //      console.log(chalk.green(`标签：`) + convertTags(result.tag));
+            // }
                 // 保存上次查询的单词
             vocabBook.saveLastQuery(result.word);
         } else {

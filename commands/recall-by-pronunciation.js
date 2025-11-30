@@ -1,4 +1,5 @@
 const readlineAsync = require('../lib/util').readlineAsync;
+const {showWord} = require('../lib/showWord');
 async function recallByPronunciation(word){
 
     const chalk = require('chalk');
@@ -33,13 +34,16 @@ async function recallByPronunciation(word){
                 console.log(chalk.red('很遗憾，猜错了。'));
             }
 
+            showWord(randomWord);
+
             // 格式化输出释义
-            console.log('\n' + chalk.green.bold(`【${randomWord.word}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
-            console.log(chalk.blue(`释义：`));
-            const translations = randomWord.translation.split('/').filter(t => t.trim());
-            translations.forEach((t, i) => {
-                console.log(`  ${i + 1}. ${t.trim()}`);
-            });
+            // console.log('\n' + chalk.green.bold(`【${randomWord.word}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
+            // console.log(chalk.blue(`释义：`));
+            // const translations = randomWord.translation.split('/').filter(t => t.trim());
+            // translations.forEach((t, i) => {
+            //     console.log(`  ${i + 1}. ${t.trim()}`);
+            // });
+            
         }
 
     }
