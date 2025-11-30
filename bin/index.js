@@ -99,7 +99,7 @@ program
 const tCommand = program.command('train')
   .alias('t')
   .description('单词学习/训练模式') // 子命令描述
-  .option('-tag, --tag <tag>', '指定单词标签（zk:中考,gk:高考,cet4:四级,cet6:六级,ky:考研,toffel:托福,ielts:雅思）', (value) => {
+  .option('-tag, --tag <tag>', '指定单词标签（zk:中考,gk:高考,cet4:四级,cet6:六级,ky:考研,toefl:托福,ielts:雅思）', (value) => {
     // 验证 tag 合法性
     const {tags} = require('../lib/getTagQuery'); // 扩展其他标签
     if (!tags.includes(value)) {

@@ -72,7 +72,7 @@ select word,tag,translation from stardict where  not(tag like '%gk%') and tag li
 select word,tag,translation from stardict where not(tag like '%cet4%') and tag like '%cet6%' order by random() limit 20;
 ```
 
-### toffel 
+### toefl 
 ```sql
 select word,tag,translation from stardict where not(tag like '%cet6%')  and not(tag like '%cet4%')  and tag like '%toefl%' order by random() limit 5;
 ```
