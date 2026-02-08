@@ -35,7 +35,6 @@
     "bin",
     "commands",
     "lib",
-    "db/cdictfull.db",
     "package.json",
     "package-lock.json",
     "LICENSE",
