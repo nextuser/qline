@@ -45,7 +45,7 @@ program.command('recall [count]')
   // 3. 复习生词：qline r/recall
 program.command('recall-by-pronunciation [count]')
   .alias('rp')
-  .description('根据中文含义复习生词')
+  .description('根据读音复习生词')
   .action(async () => {
      const recallNewWord = require('../commands/recallNewWord');
      await recallNewWord(false,true,count);
@@ -95,6 +95,15 @@ program
     
   });
 
+  // 检查语音合成支持
+  program
+  .command('check-speech')
+  .alias('cs')
+  .description('检查语音合成支持情况并获取安装指导')
+  .action(async () => {
+    const checkSpeechSupport = require('../commands/checkSpeechSupport');
+    await checkSpeechSupport();
+  });
 
   // 定义子命令 `t`（可理解为 `train/study` 缩写）
 const tCommand = program.command('train')
@@ -154,6 +163,8 @@ tCommand.action((options) => {
     process.exit(1);
   });
 
+
+
 // 解析命令行参数
 program.parse(process.argv);
 // 处理无参数情况（显示帮助）
@@ -161,4 +172,3 @@ if (process.argv.length === 2) {
   
   program.help();//program.outputHelp();
 }
-

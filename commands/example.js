@@ -25,6 +25,9 @@ async function showExample(){
     qline t -tag cet4 -c 20
     # 随机抽取10个托福词汇反复练习 -tag 指定单词标签（zk:中考,gk:高考,ky:考研,cet4:四级, cet6:六级,toefl:托福,ielts:雅思）-c 练习单词个数，缺省是10个
     qline t -tag toefl
+    # 检查语音引擎
+    qline sc 
+    
     `
     let msg = ""
     example.split('\n').forEach(line => {

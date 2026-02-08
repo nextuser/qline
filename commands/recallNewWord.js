@@ -5,11 +5,17 @@ const {WordData,WordBook} = require('../lib/wordBook');
 const chalk = require('chalk');
 const cq = require('cdict_query');
 const {handleError} = require('../lib/log');
+const speech = require('../lib/speech');
 const book = new WordBook();
 async function recall(byChinese=true,byPonenic=true,count = 10){
     let needBreak = false;
     debug("recall count is ", count)
     count = parseInt(count, 10) || 10;
+    
+    // 检查语音合成支持（如果支持会自动启用）
+    await speech.checkSupport();
+    debug(`语音合成当前状态: ${speech.isEnabled() ? '已启用' : '已禁用'}`);
+    
     await cq.connect();
     await vocab.connect();
     try {
@@ -34,6 +40,13 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
                 console.log(chalk.green("\n\n 完成任务"));
                 break;
             }
+
+            // 播放单词读音
+            if (speech.isEnabled()) {
+                await speech.speakWord(randomWord.word);
+            }
+           
+
             console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
 
             console.log(chalk.gray('\n===============================================\n'));
@@ -46,7 +59,8 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
                 
                 console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
             }
-           
+
+
             // 显示单词，等待用户确认
             process.stdout.write(chalk.blue(`\n请输入单词：`));
             process.stdin.setEncoding('utf8');
@@ -66,6 +80,8 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
             }
             
             console.log('\n' + chalk.green.bold(`【${wordShow}】`) + (randomWord.phonetic ? ` ${randomWord.phonetic}` : ''));
+        
+
             //如果前面没有输出国释义 格式化输出释义
             if(!byChinese){
                 console.log(chalk.blue(`释义：`));
