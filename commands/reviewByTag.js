@@ -1,11 +1,15 @@
-const debug = require('../lib/log');
+const { debug } = require('../lib/log');
 const vocab = require('../lib/vocab');
 const {readlineAsync} = require('../lib/util');
 const {WordData,WordBook} = require('../lib/wordBook');
 const chalk = require('chalk');
+const speech = require('../lib/speech');
 
 async function reviewByTag(tag,count){
 
+    // 检查语音合成支持（如果支持会自动启用）
+    await speech.checkSupport();
+    debug(`语音合成当前状态: ${speech.isEnabled() ? '已启用' : '已禁用'}`);
 
     const asyncGetQueryDB = require('../lib/asyncGetQueryDB');
     const dictDb = await asyncGetQueryDB();
@@ -32,6 +36,11 @@ async function reviewByTag(tag,count){
             if(randomWord.phonetic){
                 console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
             }
+
+            // 播放单词读音
+            if (speech.isEnabled()) {
+              await speech.speakWord(randomWord.word);
+            }
             console.log(chalk.cyan("释义：\n"),chalk.bold(randomWord.translation.trim()));
             // 显示单词，等待用户确认
             process.stdout.write(chalk.blue(`\n请输入单词：`));
@@ -53,6 +62,8 @@ async function reviewByTag(tag,count){
 
             // 格式化输出释义
             console.log('\n' + chalk.green.bold(`【${wordShow}】`) + (randomWord.phonetic ? chalk.gray(` ${randomWord.phonetic}`) : ''));
+            
+
             console.log(chalk.blue(`释义：`));
             const translations = randomWord.translation.split('/').filter(t => t.trim());
             translations.forEach((t, i) => {
