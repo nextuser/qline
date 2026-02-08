@@ -1,4 +1,6 @@
 const {showWord} = require('../lib/showWord');
+const speech = require('../lib/speech');
+const {debug} = require('../lib/log');
 
 async function queryWord(word){
 
@@ -10,10 +12,17 @@ async function queryWord(word){
          // 连接数据库
         await dictDB.connect();
         await vocabBook.connect();
+        speech.checkSupport();
+        if(!speech.isEnabled()){
+            debug("语音引擎未启用，无法播放单词发音");
+        }
         // 查询单词
         const result = await dictDB.queryWord(word);
 
         if (result) {
+            if(speech.isEnabled()){
+                speech.speakWord(word);
+            }
             showWord(result);
             // // 格式化输出结果
             // console.log(chalk.green.bold(`【${result.word}】`) + (result.phonetic ? chalk.gray(` ${result.phonetic}`) : ''));

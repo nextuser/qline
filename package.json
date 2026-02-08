@@ -1,6 +1,6 @@
 {
   "name": "qline",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "英中词典：支持查单词 背单词 .使用命令行调用",
   "main": "bin/index.js",
   "bin": {
@@ -23,7 +23,7 @@
   "author": "nextuser@163.com",
   "license": "MIT",
   "dependencies": {
-    "cdict_query": "^1.0.1",
+    "cdict_query": "^1.0.2",
     "chalk": "^4.1.2",
     "commander": "^9.5.0",
     "dotenv": "^17.2.3",

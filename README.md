@@ -95,7 +95,8 @@ $ qline t -tag ky
 
 # 随机抽取20个cet4词汇反复练习
 qline t -tag cet4 -c 20
-
+// 随机抽取30个维克多3500词汇反复练习
+qline t -tag vk -c 30
 
 ```
 

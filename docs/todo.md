@@ -87,6 +87,10 @@ select word,tag,translation from stardict where not(tag like '%cet6%') and not(t
 ```sql
 select word,tag,translation from stardict where not(tag like '%cet6%') and not(tag like '%cet4%') and tag like '%ielts%' order by random() limit 5;
 ```
+## 维克多3500词
+```sql
+select word,tag,translation from stardict where  tag like '%vk%' order by random() limit 5;
+```
 
 # 考虑记忆曲线和背单词结合。 根据第几次记忆，生成单词的下次回顾的时间。
 
