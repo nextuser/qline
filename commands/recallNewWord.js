@@ -39,13 +39,7 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
             if(!randomWord){
                 console.log(chalk.green("\n\n 完成任务"));
                 break;
-            }
-
-            // 播放单词读音
-            if (speech.isEnabled()) {
-                await speech.speakWord(randomWord.word);
-            }
-           
+            }          
 
             console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
 
@@ -53,11 +47,15 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
             
             if(byPonenic && randomWord.phonetic){
               
-              console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
+               process.stdout.write(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
             }
             if( (byChinese && randomWord.translation) || !randomWord.phonetic){
                 
-                console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
+                process.stdout.write(chalk.cyan("释义："),chalk.bold(randomWord.translation));
+            }
+                        // 播放单词读音
+            if (speech.isEnabled()) {
+                await speech.speakWord(randomWord.word);
             }
 
 

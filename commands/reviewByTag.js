@@ -22,6 +22,7 @@ async function reviewByTag(tag,count){
        records.forEach(record =>{
         book.addWord(new WordData(record));
        });
+       console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
        while(!needBreak){ 
 
            let randomWord = book.getNextWord();
@@ -30,9 +31,8 @@ async function reviewByTag(tag,count){
                 console.log(chalk.green(`\n\n 完成训练`));
                 break;
             }
-            console.log(chalk.cyan("\n 根据提示拼写单词，按Ctrl+C退出"))
-
-            console.log(chalk.gray('\n===============================================\n'));
+            
+            console.log(chalk.yellow('\n===============================================\n'));
             if(randomWord.phonetic){
                 console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
             }
