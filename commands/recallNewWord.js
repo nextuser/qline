@@ -47,11 +47,11 @@ async function recall(byChinese=true,byPonenic=true,count = 10){
             
             if(byPonenic && randomWord.phonetic){
               
-               process.stdout.write(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
+               console.log(chalk.cyan("读音："),chalk.bold(randomWord.phonetic));
             }
             if( (byChinese && randomWord.translation) || !randomWord.phonetic){
                 
-                process.stdout.write(chalk.cyan("释义："),chalk.bold(randomWord.translation));
+                console.log(chalk.cyan("释义："),chalk.bold(randomWord.translation));
             }
                         // 播放单词读音
             if (speech.isEnabled()) {
